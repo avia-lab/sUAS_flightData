@@ -5,53 +5,53 @@
 <title>Tarrot 450 Flight Data Dashboard</title>
 <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 <style>
-  :root {
-    --bg: #0f1419;
-    --panel: #1a2030;
-    --border: #2a3040;
-    --text: #e6e8ee;
-    --muted: #8a93a6;
-    --f1: #4ea1ff;
-    --f2: #ff7e5f;
-    --accent: #6cf;
-  }
-  * { box-sizing: border-box; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    margin: 0; padding: 24px;
-    background: var(--bg); color: var(--text);
-  }
-  h1 { margin: 0 0 4px; font-size: 22px; font-weight: 600; }
-  .subtitle { color: var(--muted); font-size: 13px; margin-bottom: 20px; }
-  .summary-grid {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px; margin-bottom: 24px;
-  }
-  .stat-card {
-    background: var(--panel); border: 1px solid var(--border);
-    border-radius: 8px; padding: 14px 16px;
-  }
-  .stat-card.f1 { border-left: 3px solid var(--f1); }
-  .stat-card.f2 { border-left: 3px solid var(--f2); }
-  .stat-label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
-  .stat-value { font-size: 18px; font-weight: 600; margin-top: 4px; }
-  .stat-pair { display: flex; gap: 14px; margin-top: 4px; }
-  .stat-pair > div > .v { font-size: 16px; font-weight: 600; }
-  .stat-pair > div > .l { font-size: 10px; color: var(--muted); }
-  .stat-pair .f1c { color: var(--f1); }
-  .stat-pair .f2c { color: var(--f2); }
-  .grid {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
-  }
-  @media (max-width: 1100px) { .grid { grid-template-columns: 1fr; } }
-  .chart {
-    background: var(--panel); border: 1px solid var(--border);
-    border-radius: 8px; padding: 12px;
-  }
-  .chart h3 { margin: 4px 0 8px 4px; font-size: 13px; font-weight: 600; color: var(--text); }
-  .chart .desc { font-size: 11px; color: var(--muted); margin: 0 0 10px 4px; }
-  .full { grid-column: 1 / -1; }
-  .legend-dot { display:inline-block; width:10px; height:10px; border-radius:50%; vertical-align:middle; margin-right:4px; }
+  :root {
+    --bg: #0f1419;
+    --panel: #1a2030;
+    --border: #2a3040;
+    --text: #e6e8ee;
+    --muted: #8a93a6;
+    --f1: #4ea1ff;
+    --f2: #ff7e5f;
+    --accent: #6cf;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    margin: 0; padding: 24px;
+    background: var(--bg); color: var(--text);
+  }
+  h1 { margin: 0 0 4px; font-size: 22px; font-weight: 600; }
+  .subtitle { color: var(--muted); font-size: 13px; margin-bottom: 20px; }
+  .summary-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px; margin-bottom: 24px;
+  }
+  .stat-card {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px 16px;
+  }
+  .stat-card.f1 { border-left: 3px solid var(--f1); }
+  .stat-card.f2 { border-left: 3px solid var(--f2); }
+  .stat-label { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .stat-value { font-size: 18px; font-weight: 600; margin-top: 4px; }
+  .stat-pair { display: flex; gap: 14px; margin-top: 4px; }
+  .stat-pair > div > .v { font-size: 16px; font-weight: 600; }
+  .stat-pair > div > .l { font-size: 10px; color: var(--muted); }
+  .stat-pair .f1c { color: var(--f1); }
+  .stat-pair .f2c { color: var(--f2); }
+  .grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  }
+  @media (max-width: 1100px) { .grid { grid-template-columns: 1fr; } }
+  .chart {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px;
+  }
+  .chart h3 { margin: 4px 0 8px 4px; font-size: 13px; font-weight: 600; color: var(--text); }
+  .chart .desc { font-size: 11px; color: var(--muted); margin: 0 0 10px 4px; }
+  .full { grid-column: 1 / -1; }
+  .legend-dot { display:inline-block; width:10px; height:10px; border-radius:50%; vertical-align:middle; margin-right:4px; }
 </style>
 </head>
 <body>
@@ -61,15 +61,15 @@
 <div class="summary-grid" id="summary"></div>
 
 <div class="grid">
-  <div class="chart full"><h3>Altitude over time</h3><div class="desc">Relative altitude from GPS fusion (meters above launch).</div><div id="altChart" style="height:340px"></div></div>
-  <div class="chart"><h3>Battery voltage</h3><div class="desc">Pack voltage under load.</div><div id="vChart" style="height:300px"></div></div>
-  <div class="chart"><h3>Battery current</h3><div class="desc">Total draw in amperes.</div><div id="aChart" style="height:300px"></div></div>
-  <div class="chart"><h3>Battery power & temperature</h3><div class="desc">Power on left axis, pack temp on right.</div><div id="pChart" style="height:300px"></div></div>
-  <div class="chart"><h3>Ground speed</h3><div class="desc">Magnitude of fused GPS velocity vector.</div><div id="spChart" style="height:300px"></div></div>
-  <div class="chart"><h3>IMU attitude — Flight 1</h3><div class="desc">Roll / pitch / yaw in radians.</div><div id="imu1Chart" style="height:300px"></div></div>
-  <div class="chart"><h3>IMU attitude — Flight 2</h3><div class="desc">Roll / pitch / yaw in radians.</div><div id="imu2Chart" style="height:300px"></div></div>
-  <div class="chart full"><h3>3D flight path</h3><div class="desc">Lat/lon/altitude. Drag to rotate, scroll to zoom.</div><div id="pathChart" style="height:520px"></div></div>
-  <div class="chart full"><h3>2D ground track</h3><div class="desc">Color = altitude (m). Bigger = higher.</div><div id="mapChart" style="height:480px"></div></div>
+  <div class="chart full"><h3>Altitude over time</h3><div class="desc">Relative altitude from GPS fusion (meters above launch).</div><div id="altChart" style="height:340px"></div></div>
+  <div class="chart"><h3>Battery voltage</h3><div class="desc">Pack voltage under load.</div><div id="vChart" style="height:300px"></div></div>
+  <div class="chart"><h3>Battery current</h3><div class="desc">Total draw in amperes.</div><div id="aChart" style="height:300px"></div></div>
+  <div class="chart"><h3>Battery power & temperature</h3><div class="desc">Power on left axis, pack temp on right.</div><div id="pChart" style="height:300px"></div></div>
+  <div class="chart"><h3>Ground speed</h3><div class="desc">Magnitude of fused GPS velocity vector.</div><div id="spChart" style="height:300px"></div></div>
+  <div class="chart"><h3>IMU attitude — Flight 1</h3><div class="desc">Roll / pitch / yaw in radians.</div><div id="imu1Chart" style="height:300px"></div></div>
+  <div class="chart"><h3>IMU attitude — Flight 2</h3><div class="desc">Roll / pitch / yaw in radians.</div><div id="imu2Chart" style="height:300px"></div></div>
+  <div class="chart full"><h3>3D flight path</h3><div class="desc">Lat/lon/altitude. Drag to rotate, scroll to zoom.</div><div id="pathChart" style="height:520px"></div></div>
+  <div class="chart full"><h3>2D ground track</h3><div class="desc">Color = altitude (m). Bigger = higher.</div><div id="mapChart" style="height:480px"></div></div>
 </div>
 
 <script>
@@ -79,34 +79,34 @@ const DATA = {"f1":{"t":[0.0,0.31,0.57,0.86,1.13,1.42,1.71,1.97,2.25,2.53,2.82,3
 // --- summary cards ---
 const s = DATA.summary;
 const cards = [
-  { side:'f1', title:'Flight 1', dur:s.f1.duration_s, alt:s.f1.max_alt_m, sp:s.f1.max_speed_ms, mah:s.f1.mAh_consumed, t:s.f1.max_batt_temp, v:s.f1.mean_batt_v },
-  { side:'f2', title:'Flight 2', dur:s.f2.duration_s, alt:s.f2.max_alt_m, sp:s.f2.max_speed_ms, mah:s.f2.mAh_consumed, t:s.f2.max_batt_temp, v:s.f2.mean_batt_v },
+  { side:'f1', title:'Flight 1', dur:s.f1.duration_s, alt:s.f1.max_alt_m, sp:s.f1.max_speed_ms, mah:s.f1.mAh_consumed, t:s.f1.max_batt_temp, v:s.f1.mean_batt_v },
+  { side:'f2', title:'Flight 2', dur:s.f2.duration_s, alt:s.f2.max_alt_m, sp:s.f2.max_speed_ms, mah:s.f2.mAh_consumed, t:s.f2.max_batt_temp, v:s.f2.mean_batt_v },
 ];
 document.getElementById('summary').innerHTML = cards.map(c => `
-  <div class="stat-card ${c.side}">
-    <div class="stat-label">${c.title}</div>
-    <div class="stat-pair">
-      <div><div class="v">${c.dur}s</div><div class="l">duration</div></div>
-      <div><div class="v">${c.alt} m</div><div class="l">max alt</div></div>
-      <div><div class="v">${c.sp} m/s</div><div class="l">peak speed</div></div>
-    </div>
-    <div class="stat-pair" style="margin-top:8px">
-      <div><div class="v">${c.mah} mAh</div><div class="l">consumed</div></div>
-      <div><div class="v">${c.v} V</div><div class="l">avg pack</div></div>
-      <div><div class="v">${c.t}°C</div><div class="l">peak temp</div></div>
-    </div>
-  </div>
+  <div class="stat-card ${c.side}">
+    <div class="stat-label">${c.title}</div>
+    <div class="stat-pair">
+      <div><div class="v">${c.dur}s</div><div class="l">duration</div></div>
+      <div><div class="v">${c.alt} m</div><div class="l">max alt</div></div>
+      <div><div class="v">${c.sp} m/s</div><div class="l">peak speed</div></div>
+    </div>
+    <div class="stat-pair" style="margin-top:8px">
+      <div><div class="v">${c.mah} mAh</div><div class="l">consumed</div></div>
+      <div><div class="v">${c.v} V</div><div class="l">avg pack</div></div>
+      <div><div class="v">${c.t}°C</div><div class="l">peak temp</div></div>
+    </div>
+  </div>
 `).join('');
 
 const baseLayout = {
-  paper_bgcolor: '#1a2030',
-  plot_bgcolor: '#1a2030',
-  font: { color: '#e6e8ee', size: 11 },
-  margin: { l: 50, r: 20, t: 10, b: 40 },
-  xaxis: { gridcolor: '#2a3040', zerolinecolor: '#2a3040', title: 'time (s)' },
-  yaxis: { gridcolor: '#2a3040', zerolinecolor: '#2a3040' },
-  legend: { orientation: 'h', y: 1.12, x: 0 },
-  hovermode: 'x unified',
+  paper_bgcolor: '#1a2030',
+  plot_bgcolor: '#1a2030',
+  font: { color: '#e6e8ee', size: 11 },
+  margin: { l: 50, r: 20, t: 10, b: 40 },
+  xaxis: { gridcolor: '#2a3040', zerolinecolor: '#2a3040', title: 'time (s)' },
+  yaxis: { gridcolor: '#2a3040', zerolinecolor: '#2a3040' },
+  legend: { orientation: 'h', y: 1.12, x: 0 },
+  hovermode: 'x unified',
 };
 const cfg = { displayModeBar: false, responsive: true };
 
@@ -114,104 +114,104 @@ function lay(over) { return Object.assign({}, JSON.parse(JSON.stringify(baseLayo
 
 // Altitude
 Plotly.newPlot('altChart', [
-  { x: DATA.f1.t, y: DATA.f1.alt, name: 'Flight 1', line:{color:F1, width:1.6}, mode:'lines'},
-  { x: DATA.f2.t, y: DATA.f2.alt, name: 'Flight 2', line:{color:F2, width:1.6}, mode:'lines'},
+  { x: DATA.f1.t, y: DATA.f1.alt, name: 'Flight 1', line:{color:F1, width:1.6}, mode:'lines'},
+  { x: DATA.f2.t, y: DATA.f2.alt, name: 'Flight 2', line:{color:F2, width:1.6}, mode:'lines'},
 ], lay({ yaxis:{ title:'altitude (m)', gridcolor:'#2a3040'} }), cfg);
 
 // Battery V
 Plotly.newPlot('vChart', [
-  { x: DATA.f1.t, y: DATA.f1.batt_v, name:'F1', line:{color:F1,width:1.4}, mode:'lines'},
-  { x: DATA.f2.t, y: DATA.f2.batt_v, name:'F2', line:{color:F2,width:1.4}, mode:'lines'},
+  { x: DATA.f1.t, y: DATA.f1.batt_v, name:'F1', line:{color:F1,width:1.4}, mode:'lines'},
+  { x: DATA.f2.t, y: DATA.f2.batt_v, name:'F2', line:{color:F2,width:1.4}, mode:'lines'},
 ], lay({ yaxis:{title:'V', gridcolor:'#2a3040'} }), cfg);
 
 // Battery A
 Plotly.newPlot('aChart', [
-  { x: DATA.f1.t, y: DATA.f1.batt_a, name:'F1', line:{color:F1,width:1.4}, mode:'lines'},
-  { x: DATA.f2.t, y: DATA.f2.batt_a, name:'F2', line:{color:F2,width:1.4}, mode:'lines'},
+  { x: DATA.f1.t, y: DATA.f1.batt_a, name:'F1', line:{color:F1,width:1.4}, mode:'lines'},
+  { x: DATA.f2.t, y: DATA.f2.batt_a, name:'F2', line:{color:F2,width:1.4}, mode:'lines'},
 ], lay({ yaxis:{title:'A', gridcolor:'#2a3040'} }), cfg);
 
 // Power & Temp dual
 Plotly.newPlot('pChart', [
-  { x: DATA.f1.t, y: DATA.f1.batt_w, name:'F1 Power (W)', line:{color:F1,width:1.4}, mode:'lines', yaxis:'y'},
-  { x: DATA.f2.t, y: DATA.f2.batt_w, name:'F2 Power (W)', line:{color:F2,width:1.4}, mode:'lines', yaxis:'y'},
-  { x: DATA.f1.t, y: DATA.f1.batt_t, name:'F1 Temp (°C)', line:{color:F1,width:1.0,dash:'dot'}, mode:'lines', yaxis:'y2'},
-  { x: DATA.f2.t, y: DATA.f2.batt_t, name:'F2 Temp (°C)', line:{color:F2,width:1.0,dash:'dot'}, mode:'lines', yaxis:'y2'},
+  { x: DATA.f1.t, y: DATA.f1.batt_w, name:'F1 Power (W)', line:{color:F1,width:1.4}, mode:'lines', yaxis:'y'},
+  { x: DATA.f2.t, y: DATA.f2.batt_w, name:'F2 Power (W)', line:{color:F2,width:1.4}, mode:'lines', yaxis:'y'},
+  { x: DATA.f1.t, y: DATA.f1.batt_t, name:'F1 Temp (°C)', line:{color:F1,width:1.0,dash:'dot'}, mode:'lines', yaxis:'y2'},
+  { x: DATA.f2.t, y: DATA.f2.batt_t, name:'F2 Temp (°C)', line:{color:F2,width:1.0,dash:'dot'}, mode:'lines', yaxis:'y2'},
 ], lay({
-  yaxis:{title:'Power (W)', gridcolor:'#2a3040'},
-  yaxis2:{title:'Temp (°C)', overlaying:'y', side:'right', gridcolor:'transparent'}
+  yaxis:{title:'Power (W)', gridcolor:'#2a3040'},
+  yaxis2:{title:'Temp (°C)', overlaying:'y', side:'right', gridcolor:'transparent'}
 }), cfg);
 
 // Speed
 Plotly.newPlot('spChart', [
-  { x: DATA.f1.t, y: DATA.f1.speed, name:'F1', line:{color:F1,width:1.4}, mode:'lines'},
-  { x: DATA.f2.t, y: DATA.f2.speed, name:'F2', line:{color:F2,width:1.4}, mode:'lines'},
+  { x: DATA.f1.t, y: DATA.f1.speed, name:'F1', line:{color:F1,width:1.4}, mode:'lines'},
+  { x: DATA.f2.t, y: DATA.f2.speed, name:'F2', line:{color:F2,width:1.4}, mode:'lines'},
 ], lay({ yaxis:{title:'m/s', gridcolor:'#2a3040'} }), cfg);
 
 // IMU — separate per flight to avoid clutter
 function imuPlot(elem, dat, primary) {
-  Plotly.newPlot(elem, [
-    { x: dat.t, y: dat.roll, name:'roll', line:{color:'#4ea1ff', width:1.2}, mode:'lines'},
-    { x: dat.t, y: dat.pitch, name:'pitch', line:{color:'#7ddc7a', width:1.2}, mode:'lines'},
-    { x: dat.t, y: dat.yaw, name:'yaw', line:{color:'#ff7e5f', width:1.2}, mode:'lines'},
-  ], lay({ yaxis:{title:'rad', gridcolor:'#2a3040'} }), cfg);
+  Plotly.newPlot(elem, [
+    { x: dat.t, y: dat.roll, name:'roll', line:{color:'#4ea1ff', width:1.2}, mode:'lines'},
+    { x: dat.t, y: dat.pitch, name:'pitch', line:{color:'#7ddc7a', width:1.2}, mode:'lines'},
+    { x: dat.t, y: dat.yaw, name:'yaw', line:{color:'#ff7e5f', width:1.2}, mode:'lines'},
+  ], lay({ yaxis:{title:'rad', gridcolor:'#2a3040'} }), cfg);
 }
 imuPlot('imu1Chart', DATA.f1);
 imuPlot('imu2Chart', DATA.f2);
 
 // 3D path
 function path3d() {
-  function clean(d){
-    const x=[], y=[], z=[];
-    for (let i=0;i<d.lat.length;i++){
-      if (d.lat[i]!=null && d.lon[i]!=null) { x.push(d.lon[i]); y.push(d.lat[i]); z.push(d.alt[i]); }
-    }
-    return {x,y,z};
-  }
-  const a = clean(DATA.f1), b = clean(DATA.f2);
-  Plotly.newPlot('pathChart', [
-    { type:'scatter3d', mode:'lines', name:'Flight 1', x:a.x, y:a.y, z:a.z, line:{color:F1, width:3}},
-    { type:'scatter3d', mode:'lines', name:'Flight 2', x:b.x, y:b.y, z:b.z, line:{color:F2, width:3}},
-  ], lay({
-    margin:{l:0,r:0,t:0,b:0},
-    scene: {
-      xaxis: { title:'lon', gridcolor:'#2a3040', backgroundcolor:'#1a2030', color:'#e6e8ee' },
-      yaxis: { title:'lat', gridcolor:'#2a3040', backgroundcolor:'#1a2030', color:'#e6e8ee' },
-      zaxis: { title:'alt (m)', gridcolor:'#2a3040', backgroundcolor:'#1a2030', color:'#e6e8ee' },
-      bgcolor:'#1a2030',
-    }
-  }), cfg);
+  function clean(d){
+    const x=[], y=[], z=[];
+    for (let i=0;i<d.lat.length;i++){
+      if (d.lat[i]!=null && d.lon[i]!=null) { x.push(d.lon[i]); y.push(d.lat[i]); z.push(d.alt[i]); }
+    }
+    return {x,y,z};
+  }
+  const a = clean(DATA.f1), b = clean(DATA.f2);
+  Plotly.newPlot('pathChart', [
+    { type:'scatter3d', mode:'lines', name:'Flight 1', x:a.x, y:a.y, z:a.z, line:{color:F1, width:3}},
+    { type:'scatter3d', mode:'lines', name:'Flight 2', x:b.x, y:b.y, z:b.z, line:{color:F2, width:3}},
+  ], lay({
+    margin:{l:0,r:0,t:0,b:0},
+    scene: {
+      xaxis: { title:'lon', gridcolor:'#2a3040', backgroundcolor:'#1a2030', color:'#e6e8ee' },
+      yaxis: { title:'lat', gridcolor:'#2a3040', backgroundcolor:'#1a2030', color:'#e6e8ee' },
+      zaxis: { title:'alt (m)', gridcolor:'#2a3040', backgroundcolor:'#1a2030', color:'#e6e8ee' },
+      bgcolor:'#1a2030',
+    }
+  }), cfg);
 }
 path3d();
 
 // 2D map (lat/lon scatter colored by altitude)
 function map2d() {
-  function clean(d){
-    const x=[], y=[], c=[], txt=[];
-    for (let i=0;i<d.lat.length;i++){
-      if (d.lat[i]!=null && d.lon[i]!=null) {
-        x.push(d.lon[i]); y.push(d.lat[i]); c.push(d.alt[i]);
-        txt.push(`t=${d.t[i]}s, alt=${d.alt[i]}m, spd=${d.speed[i]}m/s`);
-      }
-    }
-    return {x,y,c,txt};
-  }
-  const a = clean(DATA.f1), b = clean(DATA.f2);
-  Plotly.newPlot('mapChart', [
-    { type:'scatter', mode:'markers', name:'Flight 1', x:a.x, y:a.y, text:a.txt,
-      marker:{ size:5, color:a.c, colorscale:'Viridis', colorbar:{title:'alt (m)'}, showscale:true }},
-    { type:'scatter', mode:'markers', name:'Flight 2', x:b.x, y:b.y, text:b.txt,
-      marker:{ size:5, color:b.c, colorscale:'Cividis', symbol:'diamond' }},
-  ], lay({
-    xaxis:{title:'longitude', gridcolor:'#2a3040'},
-    yaxis:{title:'latitude', gridcolor:'#2a3040', scaleanchor:'x', scaleratio: Math.cos(39*Math.PI/180)},
-  }), cfg);
+  function clean(d){
+    const x=[], y=[], c=[], txt=[];
+    for (let i=0;i<d.lat.length;i++){
+      if (d.lat[i]!=null && d.lon[i]!=null) {
+        x.push(d.lon[i]); y.push(d.lat[i]); c.push(d.alt[i]);
+        txt.push(`t=${d.t[i]}s, alt=${d.alt[i]}m, spd=${d.speed[i]}m/s`);
+      }
+    }
+    return {x,y,c,txt};
+  }
+  const a = clean(DATA.f1), b = clean(DATA.f2);
+  Plotly.newPlot('mapChart', [
+    { type:'scatter', mode:'markers', name:'Flight 1', x:a.x, y:a.y, text:a.txt,
+      marker:{ size:5, color:a.c, colorscale:'Viridis', colorbar:{title:'alt (m)'}, showscale:true }},
+    { type:'scatter', mode:'markers', name:'Flight 2', x:b.x, y:b.y, text:b.txt,
+      marker:{ size:5, color:b.c, colorscale:'Cividis', symbol:'diamond' }},
+  ], lay({
+    xaxis:{title:'longitude', gridcolor:'#2a3040'},
+    yaxis:{title:'latitude', gridcolor:'#2a3040', scaleanchor:'x', scaleratio: Math.cos(39*Math.PI/180)},
+  }), cfg);
 }
 map2d();
 
 window.addEventListener('resize', () => {
-  ['altChart','vChart','aChart','pChart','spChart','imu1Chart','imu2Chart','pathChart','mapChart'].forEach(id => {
-    Plotly.Plots.resize(document.getElementById(id));
-  });
+  ['altChart','vChart','aChart','pChart','spChart','imu1Chart','imu2Chart','pathChart','mapChart'].forEach(id => {
+    Plotly.Plots.resize(document.getElementById(id));
+  });
 });
 </script>
 </body>
